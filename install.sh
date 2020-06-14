@@ -25,6 +25,19 @@ ZSHRC_PATH="$HOME/.zshrc"
 FISH_CONFIG_PATH="$HOME/.config/fish/config.fish"
 FISH_COMP_DIR="$HOME/.config/fish/completions"
 
+# Install the fish shell
+sudo apt install -qy curl fish git
+
+# Set the default shell to fish
+chsh -s "$(which fish)"
+
+# Ensure that oh-my-fish is installed
+curl -L https://get.oh-my.fish > oh-my-fish.fish
+fish ./oh-my-fish.fish --noninteractive --yes
+rm ./oh-my-fish.fish
+
+fish -c 'omf install pure; and omf install asdf'
+
 # Delete the existing Doom directory if it exists
 [ -d "$DOOM_DIR" ] && rm -rf "$DOOM_DIR"
 
@@ -51,21 +64,11 @@ if [ ! -d "$ASDF_DIR" ]; then
     cd "$ASDF_DIR"
     git checkout "$(git describe --abbrev=0 --tags)"
 
-    [ -f "$ZSHRC_PATH" ] && echo '. $HOME/.asdf/asdf.sh' >> "$ZSHRC_PATH"
-    [ -f "$BASHRC_PATH" ] && echo '. $HOME/.asdf/asdf.sh' >> "$BASHRC_PATH"
-
-    if [ -f "$FISH_CONFIG_PATH" ]; then
-        echo 'source $HOME/.asdf/asdf.fish' >> "$FISH_CONFIG_PATH"
-        mkdir -p "$FISH_COMP_DIR"
-        cp "$ASDF_DIR/completions/asdf.fish" "$FISH_COMP_DIR"
-    fi
-
     # Install dependencies for the ASDF plugins below.
-    apt install -qy \
+    sudo apt install -qy \
         autoconf \
         bison \
         build-essential \
-        curl \
         dirmngr \
         fop \
         gpg \
