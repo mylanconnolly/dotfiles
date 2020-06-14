@@ -15,6 +15,7 @@ GITCONFIG_PATH="$HOME/.gitconfig"
 # Useful constants for directories we want to ensure exist
 BIN_DIR="$HOME/bin"
 SRC_DIR="$HOME/src"
+EMACS_DIR="$HOME/.emacs.d"
 
 # The directory asdf gets installed to
 ASDF_DIR="$HOME/.asdf"
@@ -47,6 +48,9 @@ fish -c 'omf install pure; and omf install asdf'
 # Delete the existing gitconfig if it exists
 [ -f "$GITCONFIG_PATH" ] && rm "$GITCONFIG_PATH"
 
+# Delete the existing Emacs directory if it exists
+[ -d "$EMACS_DIR" ] && rm -rf "$EMACS_DIR"
+
 # Install new dotfiles (as symlinks to the dotfiles dir)
 ln -s "$DOTFILES/doom.d" "$DOOM_DIR"
 ln -s "$DOTFILES/psqlrc" "$PSQLRC_PATH"
@@ -57,6 +61,9 @@ ln -s "$DOTFILES/gitconfig" "$GITCONFIG_PATH"
 
 # If the src directory doesn't exist in your home yet, create it.
 [ ! -d "$SRC_DIR" ] && mkdir "$SRC_DIR"
+
+# Install Doom Emacs
+git clone --depth 1 https://github.com/hlissner/doom-emacs "$EMACS_DIR"
 
 # If asdf wasn't installed yet, go ahead and install it.
 if [ ! -d "$ASDF_DIR" ]; then
