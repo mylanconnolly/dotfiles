@@ -30,8 +30,7 @@ To install the dotfiles on a new computer:
 ```bash
 git clone git@github.com:mylanconnolly/dotfiles.git
 cd dotfiles
-mkdir -p ~/.config/nvim
-ln -s config/nvim/init.lua ~/.config/nvim/init.lua
+bash ./install.sh
 ```
 
 ## Notes
