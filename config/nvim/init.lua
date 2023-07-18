@@ -135,7 +135,8 @@ require("lazy").setup({
       },
       auto_install = true,
       highlight = {
-        enable = true
+        enable = true,
+        additional_vim_regex_highlighting = { "org" }
       }
     }
   },
@@ -275,6 +276,7 @@ require("lazy").setup({
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "joaomsa/telescope-orgmode.nvim" }
     },
     opts = {
       extensions = {
@@ -283,20 +285,23 @@ require("lazy").setup({
           override_generic_sorter = true,
           override_file_sorter = true,
           case_mode = "smart_case",
-        }
+        },
+        orgmode = {}
       }
     },
     init = function()
       local builtin = require("telescope.builtin")
+      local orgmode = require("telescope").extensions.orgmode
 
-      vim.keymap.set("n", "<leader>fp", builtin.diagnostics, {})     -- Find problems
-      vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, {}) -- Find definitions
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, {})      -- Find files
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})       -- Find grep
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, {})         -- Find buffers
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})       -- Find help tags
-      vim.keymap.set("n", "<leader>fr", builtin.lsp_references, {})  -- Find references
-      vim.keymap.set("n", "<leader>fs", builtin.treesitter, {})      -- Find symbols
+      vim.keymap.set("n", "<leader>fp", builtin.diagnostics, {})      -- Find problems
+      vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, {})  -- Find definitions
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, {})       -- Find files
+      vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})        -- Find grep
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, {})          -- Find buffers
+      vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})        -- Find help tags
+      vim.keymap.set("n", "<leader>fr", builtin.lsp_references, {})   -- Find references
+      vim.keymap.set("n", "<leader>fs", builtin.treesitter, {})       -- Find symbols
+      vim.keymap.set("n", "<leader>foh", orgmode.search_headings, {}) -- Find org-mode headings
 
       require("telescope").load_extension("fzf")
     end
