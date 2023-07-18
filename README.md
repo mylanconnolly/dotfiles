@@ -11,11 +11,12 @@ do so, since I don't work in Windows.
 You'll need to ensure that you have the following installed and available in
 your `$PATH` before you install this:
 
+- asdf (use this to install the programming languages in this list)
 - Elixir
-- Erlang
+- Erlang (check dependencies [here](https://github.com/asdf-vm/asdf-erlang))
 - Golang
-- Node.js
-- Ruby
+- Node.js (check dependencies [here](https://github.com/nodejs/node/blob/main/BUILDING.md#building-nodejs-on-supported-platforms))
+- Ruby (check dependencies [here](https://github.com/rbenv/ruby-build/wiki#suggested-build-environment))
 - The treesitter CLI tool
 - fd
 - fzf
