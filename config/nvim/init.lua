@@ -43,6 +43,9 @@ vim.opt.cursorline = true
 vim.opt.mouse = "a"
 vim.opt.mousefocus = true
 
+-- Use system clipboard
+vim.opt.clipboard = "unnamedplus"
+
 -- Splits
 vim.opt.splitbelow = true
 vim.opt.splitright = true
