@@ -7,6 +7,7 @@ NEOVIM_DIR="$CONFIG_DIR/nvim"
 # Install neovim configuration
 mkdir -p "$NEOVIM_DIR"
 [ -f "$NEOVIM_DIR/init.lua" ] || ln -s "$DOTFILES_DIR/config/nvim/init.lua" "$NEOVIM_DIR/init.lua"
+[ -d "$NEOVIM_DIR/snippets" ] || ln -s "$DOTFILES_DIR/config/nvim/snippets" "$NEOVIM_DIR/snippets"
 
 # Install PostgreSQL configuration
 [ -f "$HOME/.psqlrc" ] || ln -s "$DOTFILES_DIR/psqlrc" "$HOME/.psqlrc"

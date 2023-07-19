@@ -59,13 +59,17 @@ vim.opt.smartindent = true
 vim.opt.wrap = true
 
 -- Navigation between splits
-vim.keymap.set('n', '<C-h>', '<C-w>h')
-vim.keymap.set('n', '<C-j>', '<C-w>j')
-vim.keymap.set('n', '<C-k>', '<C-w>k')
-vim.keymap.set('n', '<C-l>', '<C-w>l')
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+
+-- Toggle the file tree
+vim.keymap.set("n", "<leader><leader>", ":Neotree toggle<CR>", { silent = true })
 
 local servers = {
   clangd = {},
+  emmet_ls = {},
   gopls = {},
   tsserver = {},
   solargraph = {},
@@ -141,6 +145,17 @@ require("lazy").setup({
     }
   },
 
+  -- File explorer
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim"
+    },
+    opts = {}
+  },
+
   -- Org-mode configuration. These can't be lazy (because the maintainers say so
   -- and the plugins appear to need to be loaded after orgmode itself, so we
   -- don't use dependencies here.
@@ -179,7 +194,7 @@ require("lazy").setup({
     lazy = false,
     priority = 800,
     config = function()
-      require('org-bullets').setup()
+      require("org-bullets").setup()
     end
   },
 
@@ -201,6 +216,11 @@ require("lazy").setup({
   -- Git utilities
   { "tpope/vim-fugitive" },
   { "tpope/vim-rhubarb" },
+
+  -- Automatically end statements intelligently
+  { "tpope/vim-endwise" },
+  { "tpope/vim-surround" },
+  { "tpope/vim-ragtag" },
 
   -- Display diagnostics information
   {
@@ -332,6 +352,10 @@ require("lazy").setup({
       }
     },
     config = function()
+      require("luasnip.loaders.from_snipmate").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip").filetype_extend("ruby", { "rails" })
+
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
@@ -349,7 +373,7 @@ require("lazy").setup({
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-r>"] = cmp.mapping.confirm({
+          ["<enter>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = false
           }),
